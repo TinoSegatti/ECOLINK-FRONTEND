@@ -13,7 +13,8 @@ import {
   verificarEmail,
   reenviarVerificacion,
   requestPasswordReset,
-  confirmPasswordReset, // Importación correcta
+  confirmPasswordReset,
+  verificarEmailSolicitud, // NUEVA IMPORTACIÓN
 } from "../services/api/auth"
 import { useRouter } from "next/navigation"
 
@@ -451,6 +452,31 @@ export default function useAuth() {
     }
   }
 
+  // Verificar email de solicitud (NUEVA FUNCIÓN)
+  const handleVerificarEmailSolicitud = async (token: string): Promise<{ success: boolean; message: string }> => {
+    try {
+      const response = await verificarEmailSolicitud(token)
+
+      if (!response.success) {
+        return {
+          success: false,
+          message: response.errors?.[0]?.message || "Error al verificar email de solicitud",
+        }
+      }
+
+      return {
+        success: true,
+        message: response.data!.message,
+      }
+    } catch (error) {
+      console.error("Error al verificar email de solicitud:", error)
+      return {
+        success: false,
+        message: "Error al conectar con el servidor",
+      }
+    }
+  }
+
   return {
     ...authState,
     solicitudes,
@@ -459,8 +485,9 @@ export default function useAuth() {
     logout: handleLogout,
     registro: handleRegistro,
     verificarEmail: handleVerificarEmail,
+    verificarEmailSolicitud: handleVerificarEmailSolicitud, // NUEVA FUNCIÓN
     reenviarVerificacion: handleReenviarVerificacion,
-    confirmPasswordReset: handleConfirmPasswordReset, // CORRECCIÓN: Usar handleConfirmPasswordReset
+    confirmPasswordReset: handleConfirmPasswordReset,
     requestPasswordReset: handleRequestPasswordReset,
     loadSolicitudes,
     aprobarSolicitud: handleAprobarSolicitud,

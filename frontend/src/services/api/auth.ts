@@ -28,6 +28,7 @@ const SolicitudRegistroSchema = z.object({
   nombre: z.string(),
   rol: z.nativeEnum(RolUsuario),
   tokenVerificacion: z.string(),
+  emailVerificado: z.boolean(), // NUEVO CAMPO
   aprobada: z.boolean(),
   rechazada: z.boolean(),
   motivoRechazo: z.string().nullable(),
@@ -69,6 +70,11 @@ const ReenviarVerificacionResponseSchema = z.object({
 
 // NUEVO ESQUEMA PARA RESTABLECIMIENTO DE CONTRASEÑA
 const ResetPasswordResponseSchema = z.object({
+  message: z.string(),
+})
+
+const VerificarSolicitudResponseSchema = z.object({
+  solicitud: SolicitudRegistroSchema,
   message: z.string(),
 })
 
@@ -414,5 +420,15 @@ export const confirmPasswordReset = async (
     },
     ResetPasswordResponseSchema,
     "Confirmación",
+  )
+}
+
+// NUEVA FUNCIÓN: Verificar email de solicitud
+export const verificarEmailSolicitud = async (token: string): Promise<ApiResponse<{ solicitud: SolicitudRegistro; message: string }>> => {
+  return fetchWithErrorHandling(
+    `${API_URL}/auth/verificar-solicitud?token=${encodeURIComponent(token)}`,
+    { method: "GET" },
+    VerificarSolicitudResponseSchema,
+    "Verificación de solicitud",
   )
 }

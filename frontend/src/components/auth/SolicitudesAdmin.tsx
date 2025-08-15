@@ -137,6 +137,7 @@ export default function SolicitudesAdmin() {
                 <th>Email</th>
                 <th>Rol</th>
                 <th>Fecha</th>
+                <th>Email Verificado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -148,10 +149,22 @@ export default function SolicitudesAdmin() {
                   <td><span className="badge bg-secondary">{s.rol}</span></td>
                   <td>{new Date(s.createdAt).toLocaleDateString()}</td>
                   <td>
+                    {s.emailVerificado ? (
+                      <span className="badge bg-success">
+                        <i className="bi bi-check-circle me-1"></i>Verificado
+                      </span>
+                    ) : (
+                      <span className="badge bg-warning">
+                        <i className="bi bi-exclamation-triangle me-1"></i>Pendiente
+                      </span>
+                    )}
+                  </td>
+                  <td>
                     <button
                       className="btn btn-sm btn-success me-2"
                       onClick={() => openAprobarModal(s)}
-                      disabled={isProcessing}
+                      disabled={isProcessing || !s.emailVerificado}
+                      title={!s.emailVerificado ? "El email debe estar verificado antes de aprobar" : ""}
                     >
                       <i className="bi bi-check-circle me-1"></i>
                       Aprobar
@@ -188,6 +201,13 @@ export default function SolicitudesAdmin() {
                   <div className="alert alert-info">
                     ¿Aprobar a <strong>{selectedSolicitud.nombre}</strong> ({selectedSolicitud.email}) como <strong>{selectedSolicitud.rol}</strong>?
                   </div>
+                  {!selectedSolicitud.emailVerificado && (
+                    <div className="alert alert-warning">
+                      <i className="bi bi-exclamation-triangle me-2"></i>
+                      <strong>Importante:</strong> El email de esta solicitud aún no ha sido verificado. 
+                      El usuario debe verificar su email antes de que puedas aprobar la solicitud.
+                    </div>
+                  )}
                   <div className="mb-3">
                     <label className="form-label">Contraseña inicial *</label>
                     <input
@@ -198,6 +218,9 @@ export default function SolicitudesAdmin() {
                       required
                       disabled={isProcessing}
                     />
+                    <div className="form-text">
+                      Esta contraseña será asignada al usuario y podrá usarla para iniciar sesión.
+                    </div>
                   </div>
                 </div>
                 <div className="modal-footer">

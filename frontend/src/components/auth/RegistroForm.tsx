@@ -57,7 +57,16 @@ export default function RegistroForm() {
       {success && (
         <div className="alert alert-success" role="alert">
           {success}
-          <div className="mt-2">
+          <div className="mt-3">
+            <p className="mb-2">
+              <strong>Próximos pasos:</strong>
+            </p>
+            <ol className="mb-3">
+              <li>Revisa tu email y haz clic en el enlace de verificación</li>
+              <li>Una vez verificado, tu solicitud será revisada por un administrador</li>
+              <li>El administrador te asignará una contraseña</li>
+              <li>Podrás iniciar sesión con tu email y la contraseña asignada</li>
+            </ol>
             <Link
               href="/login"
               className="btn btn-sm"
