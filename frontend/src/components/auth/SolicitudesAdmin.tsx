@@ -25,7 +25,7 @@ export default function SolicitudesAdmin() {
 
   useEffect(() => {
     loadSolicitudes()
-  }, [])
+  }, [loadSolicitudes])
 
   const resetModalState = () => {
     setSelectedSolicitud(null)
