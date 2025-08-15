@@ -1,46 +1,48 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { verificarEmailSolicitud } from "../../services/api/auth";
+import React, { Suspense } from "react";
 import EmailVerification from "../../components/auth/EmailVerification";
 
-export default function VerificarSolicitudPage() {
+// Componente hijo que usa useSearchParams
+function VerificarSolicitudContent() {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { useSearchParams } = require("next/navigation");
   const searchParams = useSearchParams();
-  const token = searchParams.get("token")
-  const [status, setStatus] = useState<"loading" | "success" | "error">("loading")
-  const [message, setMessage] = useState("")
+  const token = searchParams.get("token");
+  const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");
+  const [message, setMessage] = React.useState("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!token) {
-      setStatus("error")
-      setMessage("Token de verificación no encontrado")
-      return
+      setStatus("error");
+      setMessage("Token de verificación no encontrado");
+      return;
     }
 
     const verificarSolicitud = async () => {
       try {
-        const response = await verificarEmailSolicitud(token)
+        const { verificarEmailSolicitud } = await import("../../services/api/auth");
+        const response = await verificarEmailSolicitud(token);
         if (response.success) {
-          setStatus("success")
-          setMessage(response.data!.message)
+          setStatus("success");
+          setMessage(response.data!.message);
           // Redirigir después de 3 segundos
           setTimeout(() => {
-            window.location.href = "/login"
-          }, 3000)
+            window.location.href = "/login";
+          }, 3000);
         } else {
-          setStatus("error")
-          setMessage(response.errors?.[0]?.message || "Error al verificar la solicitud")
+          setStatus("error");
+          setMessage(response.errors?.[0]?.message || "Error al verificar la solicitud");
         }
       } catch (error) {
-        console.error("Error:", error)
-        setStatus("error")
-        setMessage("Error al conectar con el servidor")
+        console.error("Error:", error);
+        setStatus("error");
+        setMessage("Error al conectar con el servidor");
       }
-    }
+    };
 
-    verificarSolicitud()
-  }, [token])
+    verificarSolicitud();
+  }, [token]);
 
   return (
     <div className="container mt-5">
@@ -50,5 +52,27 @@ export default function VerificarSolicitudPage() {
         </div>
       </div>
     </div>
-  )
+  );
+}
+
+// Componente principal con Suspense
+export default function VerificarSolicitudPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="text-center">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Cargando...</span>
+              </div>
+              <p className="mt-2">Verificando solicitud...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }>
+      <VerificarSolicitudContent />
+    </Suspense>
+  );
 }
