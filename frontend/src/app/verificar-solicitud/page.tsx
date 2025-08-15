@@ -1,12 +1,11 @@
 "use client"
 
 import React, { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import EmailVerification from "../../components/auth/EmailVerification";
 
 // Componente hijo que usa useSearchParams
 function VerificarSolicitudContent() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { useSearchParams } = require("next/navigation");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");

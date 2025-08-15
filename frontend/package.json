@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
-  "main": "next.config.js",
+  "main": "index.js",
   "dependencies": {
     "acorn": "^8.14.1",
     "acorn-jsx": "^5.3.2",
