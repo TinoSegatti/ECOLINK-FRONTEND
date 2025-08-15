@@ -403,42 +403,52 @@ export default function ClienteTable({
     <div style={{ maxWidth: "2000px", overflowX: "auto" }}>
       <style jsx>{`
          /* === Sticky para NOMBRE === */
-  .sticky-col-nombre {
-    position: sticky;
-    left: 0;
-    background: var(--card-background);
-    z-index: 1;
-    border-right: 1px solid var(--border-color);
-    min-width: 150px;
-  }
-  .sticky-header-nombre {
-    position: sticky !important;
-    left: 0 !important;
-    background: var(--primary-green) !important;
-    color: white !important;
-    z-index: 2 !important;
-    border-right: 1px solid var(--border-color) !important;
-    min-width: 150px;
-  }
+          .sticky-col-nombre {
+            position: sticky;
+            left: 0;
+            background: var(--card-background);
+            z-index: 1;
+            border-right: 1px solid var(--border-color);
+            min-width: 150px;
+          }
+          .sticky-header-nombre {
+            position: sticky !important;
+            left: 0 !important;
+            background: var(--primary-green) !important;
+            color: white !important;
+            z-index: 2 !important;
+            border-right: 1px solid var(--border-color) !important;
+            min-width: 150px;
+          }
 
-  /* === Sticky para ESTADO TURNO, al lado === */
-  .sticky-col-estadoTurno {
-    position: sticky;
-    left: 150px;
-    background: var(--card-background);
-    z-index: 1;
-    border-right: 1px solid var(--border-color);
-    min-width: 150px;
-  }
-  .sticky-header-estadoTurno {
-    position: sticky !important;
-    left: 150px !important;
-    background: var(--primary-green) !important;
-    color: white !important;
-    z-index: 2 !important;
-    border-right: 1px solid var(--border-color) !important;
-    min-width: 150px;
-  }
+          /* === Sticky para ESTADO TURNO, al lado === */
+          .sticky-col-estadoTurno {
+            position: sticky;
+            left: 150px;
+            background: var(--card-background);
+            z-index: 1;
+            border-right: 1px solid var(--border-color);
+            min-width: 150px;
+          }
+          .sticky-header-estadoTurno {
+            position: sticky !important;
+            left: 150px !important;
+            background: var(--primary-green) !important;
+            color: white !important;
+            z-index: 2 !important;
+            border-right: 1px solid var(--border-color) !important;
+            min-width: 150px;
+          }
+            .sticky-actions-header {
+            position: sticky !important;
+            right: 0 !important;
+            background: var(--primary-green) !important;
+            color: white !important;
+            z-index: 2 !important;
+            border-left: 1px solid var(--border-color) !important;
+            min-width: 120px;   /* asegurate que coincida con sticky-actions */
+            text-align: center;
+          }
         .switch-container {
           position: sticky;
           left: 0;
@@ -649,9 +659,8 @@ export default function ClienteTable({
                     ? "sticky-header-nombre col-nombre"
                     : columna === "estadoTurno"
                     ? "sticky-header-estadoTurno col-estadoTurno"
-                    : `col-${columna}`
-                }
-              >
+                    : `col-${columna}`}
+                >
                   <div className="header-with-filter">
                     <span className="header-text small">
                       {String(columna)
@@ -831,16 +840,16 @@ export default function ClienteTable({
 
                   return (
                     <td
-  key={columna}
-  className={
-    columna === "nombre"
-      ? "sticky-col-nombre fw-bold col-nombre"
-      : columna === "estadoTurno"
-      ? "sticky-col-estadoTurno fw-bold col-estadoTurno"
-      : `col-${columna} small`
-  }
-  title={String(valor || "")}
->
+                      key={columna}
+                      className={
+                        columna === "nombre"
+                          ? "sticky-col-nombre fw-bold col-nombre"
+                          : columna === "estadoTurno"
+                          ? "sticky-col-estadoTurno fw-bold col-estadoTurno"
+                          : `col-${columna} small`
+                      }
+                      title={String(valor || "")}
+                    >
                       <div className="cell-content">
                         {columna === "nuevo" ? (
                           valor ? (
