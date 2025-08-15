@@ -48,25 +48,26 @@ export default function ClienteTable({
   })
 
   const columnas: (keyof Cliente)[] = [
-    "nombre",
+    "nombre",              // <- sticky
+    "estadoTurno",         // <- sticky
+    "prioridad",
     "zona",
     "barrio",
     "direccion",
     "detalleDireccion",
     "telefono",
     "semana",
-    "horario",
-    "observaciones",
     "tipoCliente",
+    "observaciones",
+    "horario",
     "debe",
     "fechaDeuda",
-    "precio",
     "ultimaRecoleccion",
-    "contratacion",
-    "estadoTurno",
-    "prioridad",
+    "precio",
     "estado",
     "gestionComercial",
+    "contratacion",
+  
     "CUIT",
     "condicion",
     "factura",
@@ -640,7 +641,9 @@ export default function ClienteTable({
           <thead>
             <tr>
               {displayedColumns.map((columna) => (
-                <th key={columna} className={`${columna === "nombre" ? "sticky-column-header" : ""} col-${columna}`}>
+                <th
+                key={columna}
+                className={`${(columna === "nombre" || columna === "estadoTurno") ? "sticky-column-header" : ""} col-${columna}`}>
                   <div className="header-with-filter">
                     <span className="header-text small">
                       {String(columna)
@@ -821,7 +824,7 @@ export default function ClienteTable({
                   return (
                     <td
                       key={columna}
-                      className={`${columna === "nombre" ? "sticky-column fw-bold" : ""} col-${columna} small`}
+                      className={`${(columna === "nombre" || columna === "estadoTurno") ? "sticky-column fw-bold" : ""} col-${columna} small`}
                       title={String(valor || "")}
                     >
                       <div className="cell-content">
