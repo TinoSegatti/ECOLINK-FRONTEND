@@ -36,12 +36,20 @@ export default function Navbar() {
                   </Link>
                 </li>
                 {usuario?.rol === RolUsuario.ADMIN && (
-                  <li className="nav-item">
-                    <Link href="/admin/solicitudes" className="nav-link">
-                      <i className="bi bi-person-check me-1"></i>
-                      Solicitudes
-                    </Link>
-                  </li>
+                  <>
+                    <li className="nav-item">
+                      <Link href="/admin/solicitudes" className="nav-link">
+                        <i className="bi bi-person-check me-1"></i>
+                        Solicitudes
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/admin/usuarios" className="nav-link">
+                        <i className="bi bi-people me-1"></i>
+                        Usuarios
+                      </Link>
+                    </li>
+                  </>
                 )}
               </>
             )}
