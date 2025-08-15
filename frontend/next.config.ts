@@ -1,5 +1,12 @@
 const nextConfig = {
   reactStrictMode: true,
+  // Configuración para producción
+  output: 'standalone',
+  // Asegurar que las páginas se generen correctamente
+  experimental: {
+    // Habilitar la generación estática optimizada
+    optimizePackageImports: ['react', 'react-dom'],
+  },
   async rewrites() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://back-ecolink-3.onrender.com';
     
