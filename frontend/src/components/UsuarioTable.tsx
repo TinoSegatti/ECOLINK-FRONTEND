@@ -6,11 +6,13 @@ import { Usuario, RolUsuario } from '../types'
 interface UsuarioTableProps {
   usuarios: Usuario[]
   onEliminarUsuario: (id: number) => Promise<{ success: boolean; error?: string }>
+  onCambiarEstado: (id: number, activo: boolean) => Promise<{ success: boolean; error?: string }>
 }
 
-export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTableProps) {
+export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEstado }: UsuarioTableProps) {
   const [usuarioAEliminar, setUsuarioAEliminar] = useState<Usuario | null>(null)
   const [isEliminando, setIsEliminando] = useState(false)
+  const [usuariosCambiandoEstado, setUsuariosCambiandoEstado] = useState<Set<number>>(new Set())
 
   const handleEliminarClick = (usuario: Usuario) => {
     setUsuarioAEliminar(usuario)
@@ -35,6 +37,27 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTab
 
   const handleCancelarEliminacion = () => {
     setUsuarioAEliminar(null)
+  }
+
+  const handleCambiarEstado = async (usuario: Usuario) => {
+    const nuevoEstado = !usuario.activo
+    
+    setUsuariosCambiandoEstado(prev => new Set(prev).add(usuario.id))
+    
+    try {
+      const result = await onCambiarEstado(usuario.id, nuevoEstado)
+      if (result.success) {
+        alert(`Usuario ${nuevoEstado ? 'activado' : 'desactivado'} exitosamente`)
+      } else {
+        alert('Error al cambiar estado: ' + result.error)
+      }
+    } finally {
+      setUsuariosCambiandoEstado(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(usuario.id)
+        return newSet
+      })
+    }
   }
 
   const formatearFecha = (fecha: string) => {
@@ -69,6 +92,7 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTab
               <th>Email</th>
               <th>Rol</th>
               <th>Estado</th>
+              <th>Verificado</th>
               <th>Creado</th>
               <th>Acciones</th>
             </tr>
@@ -89,16 +113,33 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTab
                     {usuario.activo ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
+                <td>
+                  <span className={`badge ${usuario.verificado ? 'bg-success' : 'bg-warning'}`}>
+                    {usuario.verificado ? 'Sí' : 'No'}
+                  </span>
+                </td>
                 <td>{formatearFecha(usuario.createdAt)}</td>
                 <td>
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => handleEliminarClick(usuario)}
-                    disabled={isEliminando}
-                  >
-                    <i className="bi bi-trash me-1"></i>
-                    Eliminar
-                  </button>
+                  <div className="btn-group" role="group">
+                    <button
+                      className={`btn btn-sm ${usuario.activo ? 'btn-outline-warning' : 'btn-outline-success'}`}
+                      onClick={() => handleCambiarEstado(usuario)}
+                      disabled={usuariosCambiandoEstado.has(usuario.id)}
+                      title={usuario.activo ? 'Desactivar usuario' : 'Activar usuario'}
+                    >
+                      <i className={`bi ${usuario.activo ? 'bi-person-x' : 'bi-person-check'} me-1`}></i>
+                      {usuariosCambiandoEstado.has(usuario.id) ? '...' : (usuario.activo ? 'Desactivar' : 'Activar')}
+                    </button>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => handleEliminarClick(usuario)}
+                      disabled={isEliminando}
+                      title="Eliminar usuario"
+                    >
+                      <i className="bi bi-trash me-1"></i>
+                      Eliminar
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
