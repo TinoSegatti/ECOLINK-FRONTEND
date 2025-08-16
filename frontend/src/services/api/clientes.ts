@@ -66,7 +66,7 @@ const ActualizarPreciosResponseSchema = z.object({
   count: z.number(),
 })
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://back-ecolink-3.onrender.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://ecolink-backend.onrender.com";
 const API_URL = `${BASE_URL}/api`;
 
 // Función para obtener headers con autenticación
