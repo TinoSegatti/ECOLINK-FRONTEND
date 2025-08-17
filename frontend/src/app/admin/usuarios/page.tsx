@@ -9,11 +9,9 @@ export default function UsuariosPage() {
   const { usuario, isAuthenticated } = useAuthContext()
   const { 
     usuarios, 
-    estadisticas,
     isLoading, 
     error, 
-    eliminarUsuario,
-    cambiarEstadoUsuario 
+    eliminarUsuario
   } = useUsuarios()
 
   // Verificar si es admin
@@ -30,10 +28,6 @@ export default function UsuariosPage() {
 
   const handleEliminarUsuario = async (id: number) => {
     return await eliminarUsuario(id)
-  }
-
-  const handleCambiarEstado = async (id: number, activo: boolean) => {
-    return await cambiarEstadoUsuario(id, activo)
   }
 
   if (isLoading) {
@@ -70,44 +64,6 @@ export default function UsuariosPage() {
               </h5>
             </div>
             <div className="card-body">
-              {/* Estadísticas */}
-              {estadisticas && (
-                <div className="row mb-4">
-                  <div className="col-md-3">
-                    <div className="card bg-primary text-white">
-                      <div className="card-body text-center">
-                        <h4>{estadisticas.total}</h4>
-                        <small>Total Usuarios</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-success text-white">
-                      <div className="card-body text-center">
-                        <h4>{estadisticas.activos}</h4>
-                        <small>Usuarios Activos</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-info text-white">
-                      <div className="card-body text-center">
-                        <h4>{estadisticas.verificados}</h4>
-                        <small>Usuarios Verificados</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-warning text-white">
-                      <div className="card-body text-center">
-                        <h4>{estadisticas.porRol.length}</h4>
-                        <small>Roles Diferentes</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* Tabla de usuarios */}
               {usuarios.length === 0 ? (
                 <p className="text-center text-muted">No hay usuarios registrados.</p>
@@ -115,7 +71,6 @@ export default function UsuariosPage() {
                 <UsuarioTable 
                   usuarios={usuarios} 
                   onEliminarUsuario={handleEliminarUsuario}
-                  onCambiarEstado={handleCambiarEstado}
                 />
               )}
             </div>

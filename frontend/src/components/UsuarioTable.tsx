@@ -6,13 +6,11 @@ import { Usuario, RolUsuario } from '../types'
 interface UsuarioTableProps {
   usuarios: Usuario[]
   onEliminarUsuario: (id: number) => Promise<{ success: boolean; error?: string }>
-  onCambiarEstado: (id: number, activo: boolean) => Promise<{ success: boolean; error?: string }>
 }
 
-export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEstado }: UsuarioTableProps) {
+export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTableProps) {
   const [usuarioAEliminar, setUsuarioAEliminar] = useState<Usuario | null>(null)
   const [isEliminando, setIsEliminando] = useState(false)
-  const [usuariosCambiandoEstado, setUsuariosCambiandoEstado] = useState<Set<number>>(new Set())
 
   const handleEliminarClick = (usuario: Usuario) => {
     setUsuarioAEliminar(usuario)
@@ -37,27 +35,6 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEst
 
   const handleCancelarEliminacion = () => {
     setUsuarioAEliminar(null)
-  }
-
-  const handleCambiarEstado = async (usuario: Usuario) => {
-    const nuevoEstado = !usuario.activo
-    
-    setUsuariosCambiandoEstado(prev => new Set(prev).add(usuario.id))
-    
-    try {
-      const result = await onCambiarEstado(usuario.id, nuevoEstado)
-      if (result.success) {
-        alert(`Usuario ${nuevoEstado ? 'activado' : 'desactivado'} exitosamente`)
-      } else {
-        alert('Error al cambiar estado: ' + result.error)
-      }
-    } finally {
-      setUsuariosCambiandoEstado(prev => {
-        const newSet = new Set(prev)
-        newSet.delete(usuario.id)
-        return newSet
-      })
-    }
   }
 
   const formatearFecha = (fecha: string) => {
@@ -101,15 +78,15 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEst
             {usuarios.map((usuario) => (
               <tr key={usuario.id}>
                 <td>{usuario.id}</td>
-                <td><strong>{usuario.nombre}</strong></td>
-                <td><code>{usuario.email}</code></td>
+                <td>{usuario.nombre}</td>
+                <td>{usuario.email}</td>
                 <td>
                   <span className={getRolColor(usuario.rol)}>
                     {usuario.rol}
                   </span>
                 </td>
                 <td>
-                  <span className={`badge ${usuario.activo ? 'bg-success' : 'bg-secondary'}`}>
+                  <span className={`badge ${usuario.activo ? 'bg-success' : 'bg-danger'}`}>
                     {usuario.activo ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
@@ -120,26 +97,13 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEst
                 </td>
                 <td>{formatearFecha(usuario.createdAt)}</td>
                 <td>
-                  <div className="btn-group" role="group">
-                    <button
-                      className={`btn btn-sm ${usuario.activo ? 'btn-outline-warning' : 'btn-outline-success'}`}
-                      onClick={() => handleCambiarEstado(usuario)}
-                      disabled={usuariosCambiandoEstado.has(usuario.id)}
-                      title={usuario.activo ? 'Desactivar usuario' : 'Activar usuario'}
-                    >
-                      <i className={`bi ${usuario.activo ? 'bi-person-x' : 'bi-person-check'} me-1`}></i>
-                      {usuariosCambiandoEstado.has(usuario.id) ? '...' : (usuario.activo ? 'Desactivar' : 'Activar')}
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-danger"
-                      onClick={() => handleEliminarClick(usuario)}
-                      disabled={isEliminando}
-                      title="Eliminar usuario"
-                    >
-                      <i className="bi bi-trash me-1"></i>
-                      Eliminar
-                    </button>
-                  </div>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleEliminarClick(usuario)}
+                    disabled={isEliminando}
+                  >
+                    <i className="bi bi-trash"></i> Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
@@ -147,37 +111,33 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEst
         </table>
       </div>
 
-      {/* Modal simple de confirmación */}
+      {/* Modal de confirmación para eliminar */}
       {usuarioAEliminar && (
         <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-dialog">
             <div className="modal-content">
-              <div className="modal-header bg-danger text-white">
-                <h5 className="modal-title">
-                  <i className="bi bi-exclamation-triangle me-2"></i>
-                  Confirmar eliminación
-                </h5>
+              <div className="modal-header">
+                <h5 className="modal-title">Confirmar eliminación</h5>
                 <button
                   type="button"
-                  className="btn-close btn-close-white"
+                  className="btn-close"
                   onClick={handleCancelarEliminacion}
                 ></button>
               </div>
               <div className="modal-body">
                 <p>
                   ¿Estás seguro de que quieres eliminar al usuario{' '}
-                  <strong>{usuarioAEliminar.nombre}</strong>?
+                  <strong>{usuarioAEliminar.nombre}</strong> ({usuarioAEliminar.email})?
                 </p>
-                <div className="alert alert-warning">
-                  <strong>Esta acción no se puede deshacer.</strong>
-                </div>
+                <p className="text-danger">
+                  <strong>⚠️ Advertencia:</strong> Esta acción también eliminará la solicitud de registro asociada y no se puede deshacer.
+                </p>
               </div>
               <div className="modal-footer">
                 <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleCancelarEliminacion}
-                  disabled={isEliminando}
                 >
                   Cancelar
                 </button>
@@ -187,7 +147,14 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario, onCambiarEst
                   onClick={handleConfirmarEliminacion}
                   disabled={isEliminando}
                 >
-                  {isEliminando ? 'Eliminando...' : 'Sí, eliminar'}
+                  {isEliminando ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                      Eliminando...
+                    </>
+                  ) : (
+                    'Eliminar Usuario'
+                  )}
                 </button>
               </div>
             </div>
