@@ -5,7 +5,7 @@ import ProtectedRoute from "../../../components/auth/ProtectedRoute";
 import SolicitudesAdmin from "../../../components/auth/SolicitudesAdmin";
 import { RolUsuario } from "../../../types";
 import { useAuthContext } from "../../../contexts/AuthContext";
-import DebugAuth from "../../../components/auth/DebugAuth";
+//import DebugAuth from "../../../components/auth/DebugAuth";
 
 export default function SolicitudesPage() {
   const { loadSolicitudes, usuario } = useAuthContext();
