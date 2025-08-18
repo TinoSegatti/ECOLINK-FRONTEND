@@ -33,7 +33,7 @@ export default function SolicitudesPage() {
               <h1>Gestión de Solicitudes de Registro</h1>
               <p className="text-muted">Administra las solicitudes pendientes de nuevos usuarios</p>
             </div>
-            <DebugAuth />
+            {/* <DebugAuth /> */}
             <SolicitudesAdmin />
           </div>
         </div>
