@@ -145,7 +145,7 @@ export interface SolicitudRegistro {
   email: string
   nombre: string
   rol: RolUsuario
-  tokenVerificacion: string
+  tokenVerificacion: string | null // Cambiado a nullable para permitir null
   emailVerificado: boolean
   aprobada: boolean
   rechazada: boolean

@@ -27,7 +27,7 @@ const SolicitudRegistroSchema = z.object({
   email: z.string().email(),
   nombre: z.string(),
   rol: z.nativeEnum(RolUsuario),
-  tokenVerificacion: z.string(),
+  tokenVerificacion: z.string().nullable(), // Cambiado a nullable para permitir null
   emailVerificado: z.boolean(), // NUEVO CAMPO
   aprobada: z.boolean(),
   rechazada: z.boolean(),
@@ -315,9 +315,10 @@ export const obtenerPerfil = async (): Promise<ApiResponse<Usuario>> => {
 }
 
 export const obtenerSolicitudes = async (): Promise<ApiResponse<SolicitudRegistro[]>> => {
-  console.log("obtenerSolicitudes: Iniciando petición...")
+  console.log("🔍 obtenerSolicitudes: Iniciando petición...")
   const token = localStorage.getItem("token")
-  console.log("Token disponible:", !!token)
+  console.log("🔑 Token disponible:", !!token)
+  console.log("🌐 URL de la API:", `${API_URL}/auth/solicitudes`)
 
   const result = await fetchWithErrorHandling(
     `${API_URL}/auth/solicitudes`,
@@ -326,7 +327,22 @@ export const obtenerSolicitudes = async (): Promise<ApiResponse<SolicitudRegistr
     "Solicitudes",
   )
 
-  console.log("obtenerSolicitudes: Resultado:", result)
+  console.log("📊 obtenerSolicitudes: Resultado completo:", result)
+  
+  if (result.success && result.data) {
+    console.log("✅ Solicitudes obtenidas exitosamente:", result.data.length)
+    console.log("📋 Detalles de solicitudes:", result.data.map(s => ({
+      id: s.id,
+      email: s.email,
+      nombre: s.nombre,
+      rol: s.rol,
+      emailVerificado: s.emailVerificado,
+      tokenVerificacion: s.tokenVerificacion ? "Presente" : "Null"
+    })))
+  } else {
+    console.log("❌ Error al obtener solicitudes:", result.errors)
+  }
+  
   return result
 }
 
