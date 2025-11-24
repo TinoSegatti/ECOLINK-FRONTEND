@@ -1,16 +1,23 @@
-/* Landing Page - Glass Morphism Design */
+/* Landing Page - Glass Morphism Design con Paleta ECOLINK */
 
 :root {
   --primary-green: #7ac943;
   --primary-green-dark: #6ba83a;
   --primary-green-light: #8fd85a;
+  --secondary-text: #6c757d;
+  --background: #f8f9fa;
+  --foreground: #212529;
+  --card-background: #ffffff;
+  --border-color: #dee2e6;
+  --accent-cyan: #17a2b8;
+  --accent-magenta: #e83e8c;
+  --accent-blue-gray: #6f42c1;
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: rgba(0, 0, 0, 0.1);
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
   --gradient-1: linear-gradient(135deg, #7ac943 0%, #6ba83a 100%);
   --gradient-2: linear-gradient(135deg, rgba(122, 201, 67, 0.1) 0%, rgba(107, 168, 58, 0.1) 100%);
+  --gradient-bg: linear-gradient(135deg, #7ac943 0%, #6ba83a 25%, #8fd85a 50%, #17a2b8 75%, #7ac943 100%);
 }
 
 * {
@@ -21,7 +28,7 @@
 
 .landing-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background: var(--gradient-bg);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   position: relative;
@@ -80,8 +87,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(122, 201, 67, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(107, 168, 58, 0.3) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 50%, rgba(122, 201, 67, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(107, 168, 58, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(23, 162, 184, 0.2) 0%, transparent 50%);
   z-index: 0;
 }
 
@@ -220,7 +228,7 @@ section {
 
 .stat-icon {
   font-size: 3rem;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   margin-bottom: 1rem;
 }
 
@@ -297,7 +305,7 @@ section {
 
 .tech-icon {
   font-size: 2rem;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
 }
 
 .tech-item span {
@@ -324,7 +332,7 @@ section {
 
 .funcionalidad-icon {
   font-size: 3rem;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -354,7 +362,7 @@ section {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   font-weight: bold;
 }
 
@@ -469,7 +477,7 @@ section {
   border-radius: 4px;
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
 }
 
 /* Repositorios Section */
@@ -501,7 +509,7 @@ section {
 
 .repo-icon {
   font-size: 4rem;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   margin-bottom: 1.5rem;
 }
 
@@ -520,7 +528,7 @@ section {
 }
 
 .repo-link {
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -546,7 +554,7 @@ section {
 
 .invitado-icon {
   font-size: 4rem;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   margin-bottom: 1.5rem;
 }
 
@@ -605,7 +613,7 @@ section {
 
 .credential-value {
   font-family: monospace;
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -651,7 +659,7 @@ section {
 }
 
 .footer-links a:hover {
-  color: var(--primary-green-light);
+  color: var(--primary-green);
   transform: translateY(-2px);
 }
 
