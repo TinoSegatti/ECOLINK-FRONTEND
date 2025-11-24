@@ -326,7 +326,7 @@ export default function LandingPage() {
                           <li>Sube tu video a YouTube (puede ser privado o no listado)</li>
                           <li>Copia el ID del video de la URL: <code>youtube.com/watch?v=VIDEO_ID</code></li>
                           <li>Reemplaza <code>VIDEO_ID</code> en la línea 293 del archivo <code>page.tsx</code></li>
-                          <li>Cambia <code>style={{ display: "none" }}</code> a <code>style={{ display: "block" }}</code></li>
+                          <li>Cambia <code>style=&#123;&#123; display: &quot;none&quot; &#125;&#125;</code> a <code>style=&#123;&#123; display: &quot;block&quot; &#125;&#125;</code></li>
                         </ol>
                       </div>
                       <div className="instruction-item">
@@ -336,7 +336,7 @@ export default function LandingPage() {
                         </h4>
                         <ol>
                           <li>Sube el video a Google Drive</li>
-                          <li>Haz clic derecho → "Obtener enlace" → "Cualquiera con el enlace"</li>
+                          <li>Haz clic derecho → &quot;Obtener enlace&quot; → &quot;Cualquiera con el enlace&quot;</li>
                           <li>Copia el ID del archivo de la URL: <code>drive.google.com/file/d/ARCHIVO_ID/view</code></li>
                           <li>Descomenta el iframe de Google Drive y reemplaza <code>ARCHIVO_ID</code></li>
                         </ol>
