@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Usuario, RolUsuario } from '../types'
+import { useAuthContext } from '../contexts/AuthContext'
 
 interface UsuarioTableProps {
   usuarios: Usuario[]
@@ -9,6 +10,8 @@ interface UsuarioTableProps {
 }
 
 export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTableProps) {
+  const { usuario: usuarioActual } = useAuthContext()
+  const esInvitado = usuarioActual?.email === 'invitado@ecolink.com'
   const [usuarioAEliminar, setUsuarioAEliminar] = useState<Usuario | null>(null)
   const [isEliminando, setIsEliminando] = useState(false)
 
@@ -66,7 +69,7 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTab
             <tr>
               <th>ID</th>
               <th>Nombre</th>
-              <th>Email</th>
+              {!esInvitado && <th>Email</th>}
               <th>Rol</th>
               <th>Estado</th>
               <th>Verificado</th>
@@ -79,7 +82,7 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTab
               <tr key={usuario.id}>
                 <td>{usuario.id}</td>
                 <td>{usuario.nombre}</td>
-                <td>{usuario.email}</td>
+                {!esInvitado && <td>{usuario.email}</td>}
                 <td>
                   <span className={getRolColor(usuario.rol)}>
                     {usuario.rol}
@@ -127,7 +130,8 @@ export default function UsuarioTable({ usuarios, onEliminarUsuario }: UsuarioTab
               <div className="modal-body">
                 <p>
                   ¿Estás seguro de que quieres eliminar al usuario{' '}
-                  <strong>{usuarioAEliminar.nombre}</strong> ({usuarioAEliminar.email})?
+                  <strong>{usuarioAEliminar.nombre}</strong>
+                  {!esInvitado && ` (${usuarioAEliminar.email})`}?
                 </p>
                 <p className="text-danger">
                   <strong>⚠️ Advertencia:</strong> Esta acción también eliminará la solicitud de registro asociada y no se puede deshacer.

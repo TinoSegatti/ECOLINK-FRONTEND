@@ -456,7 +456,7 @@ export default function LandingPage() {
                   </div>
                   <div className="credential-item">
                     <span className="credential-label">Contraseña:</span>
-                    <span className="credential-value">Invitado2024</span>
+                    <span className="credential-value">Invitado2025</span>
                   </div>
                 </div>
                 <Link href="/login" className="btn-glass btn-primary-glass mt-4">
