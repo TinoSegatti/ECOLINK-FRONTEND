@@ -36,7 +36,7 @@ export default function RootLayout({
                     <p className="mb-0 opacity-75">Sistema de gestión de clientes moderno y eficiente</p>
                   </div>
                   <div className="col-md-6 text-md-end">
-                    <small className="opacity-75">© 2024 ECOLINK. Todos los derechos reservados.</small>
+                    <small className="opacity-75">© 2025 ECOLINK. Todos los derechos reservados.</small>
                   </div>
                 </div>
               </div>
