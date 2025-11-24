@@ -70,7 +70,7 @@ export default function LandingPage() {
                   <div className="stat-icon">
                     <i className="bi bi-cash-coin"></i>
                   </div>
-                  <div className="stat-value">$50K+</div>
+                  <div className="stat-value">+ $20.000</div>
                   <div className="stat-label">Ahorro Anual</div>
                   <div className="stat-description">
                     Reducción de costos operativos y errores humanos
@@ -456,7 +456,7 @@ export default function LandingPage() {
                   </div>
                   <div className="credential-item">
                     <span className="credential-label">Contraseña:</span>
-                    <span className="credential-value">Invitado2025</span>
+                    <span className="credential-value">Invitado2024</span>
                   </div>
                 </div>
                 <Link href="/login" className="btn-glass btn-primary-glass mt-4">
@@ -464,6 +464,51 @@ export default function LandingPage() {
                   Iniciar Sesión como Invitado
                 </Link>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Disclaimer Section */}
+      <section id="disclaimer" className="section-disclaimer">
+        <div className="container-custom">
+          <div className="disclaimer-card glass-card">
+            <div className="disclaimer-icon">
+              <i className="bi bi-info-circle-fill"></i>
+            </div>
+            <h3 className="disclaimer-title">Aviso Importante sobre Disponibilidad del Servicio</h3>
+            <div className="disclaimer-content">
+              <p>
+                Este sistema está alojado en servicios de hosting gratuitos (Render para el backend y Aiven para la base de datos).
+                Por limitaciones de estos servicios, si el sistema permanece inactivo por más de 7 días consecutivos, los servicios
+                pueden entrar en un estado de pausa automática.
+              </p>
+              <p>
+                <strong>Si experimentas problemas al iniciar sesión:</strong>
+              </p>
+              <ul className="disclaimer-list">
+                <li>
+                  <i className="bi bi-arrow-repeat me-2"></i>
+                  Intenta nuevamente después del primer error, ya que los servicios pueden estar reactivándose automáticamente
+                </li>
+                <li>
+                  <i className="bi bi-envelope me-2"></i>
+                  Si el problema persiste, contacta a{" "}
+                  <a href="mailto:valentinosegatti@gmail.com" className="disclaimer-link">
+                    valentinosegatti@gmail.com
+                  </a>{" "}
+                  para solicitar la reactivación de los servicios
+                </li>
+                <li>
+                  <i className="bi bi-clock me-2"></i>
+                  Recibirás una notificación cuando los servicios estén nuevamente disponibles
+                </li>
+              </ul>
+              <p className="disclaimer-note">
+                <i className="bi bi-lightbulb me-2"></i>
+                <strong>Nota:</strong> Este es un sistema de demostración. Para uso en producción, se recomienda utilizar servicios
+                de hosting con planes que no incluyan pausas automáticas.
+              </p>
             </div>
           </div>
         </div>
