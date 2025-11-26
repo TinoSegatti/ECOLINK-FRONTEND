@@ -6,6 +6,163 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "./landing.css"
 
+// Datos de los videos
+const videos = [
+  {
+    id: "8GloYsroYyo",
+    title: "SOLICITUD DE ACCESO",
+    part: "PARTE 1"
+  },
+  {
+    id: "61tPferT_2A",
+    title: "VISTA GENERAL DE USUARIO INVITADO",
+    part: "PARTE 2"
+  },
+  {
+    id: "JZutpmh6SdY",
+    title: "CREACIÓN DE CLIENTES",
+    part: "PARTE 3"
+  },
+  {
+    id: "N1ke5hWeO08",
+    title: "EDICIÓN DE CLIENTES",
+    part: "PARTE 4"
+  },
+  {
+    id: "SOMaLnp8wME",
+    title: "EDICIÓN DE CATEGORIAS",
+    part: "PARTE 5"
+  },
+  {
+    id: "P-Sw2GW2x9A",
+    title: "CAMBIO DE PRECIOS MASIVOS",
+    part: "PARTE 6"
+  },
+  {
+    id: "l1H1S7GJA6Q",
+    title: "SISTEMA DE FILTROS DE CLIENTES",
+    part: "PARTE 7"
+  }
+]
+
+// Componente del Carrusel de Videos
+function VideoCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false)
+
+  const currentVideo = videos[currentIndex]
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? videos.length - 1 : prevIndex - 1))
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === videos.length - 1 ? 0 : prevIndex + 1))
+  }
+
+  const goToVideo = (index: number) => {
+    setCurrentIndex(index)
+  }
+
+  // Auto-play opcional (deshabilitado por defecto)
+  useEffect(() => {
+    if (isAutoPlaying) {
+      const interval = setInterval(() => {
+        goToNext()
+      }, 30000) // Cambia cada 30 segundos
+      return () => clearInterval(interval)
+    }
+  }, [isAutoPlaying, currentIndex])
+
+  return (
+    <div className="video-carousel-container">
+      {/* Controles de navegación superior */}
+      <div className="carousel-header">
+        <div className="carousel-title-section">
+          <h3 className="carousel-main-title">
+            <span className="part-badge">{currentVideo.part}</span>
+            {currentVideo.title}
+          </h3>
+          <div className="carousel-counter">
+            {currentIndex + 1} / {videos.length}
+          </div>
+        </div>
+        <div className="carousel-controls-top">
+          <button
+            className="carousel-btn carousel-btn-prev"
+            onClick={goToPrevious}
+            aria-label="Video anterior"
+          >
+            <i className="bi bi-chevron-left"></i>
+          </button>
+          <button
+            className="carousel-btn carousel-btn-next"
+            onClick={goToNext}
+            aria-label="Video siguiente"
+          >
+            <i className="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      {/* Contenedor del video */}
+      <div className="video-carousel-wrapper glass-card">
+        <div className="video-carousel-item">
+          <div className="video-embed-container">
+            <iframe
+              key={currentVideo.id}
+              className="video-embed-iframe"
+              src={`https://www.youtube.com/embed/${currentVideo.id}?rel=0&autoplay=0`}
+              title={currentVideo.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      {/* Indicadores de videos (dots) */}
+      <div className="carousel-indicators">
+        {videos.map((video, index) => (
+          <button
+            key={video.id}
+            className={`carousel-indicator ${index === currentIndex ? "active" : ""}`}
+            onClick={() => goToVideo(index)}
+            aria-label={`Ir a ${video.title}`}
+            title={video.title}
+          >
+            <span className="indicator-dot"></span>
+            <span className="indicator-label">{index + 1}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Lista de videos (thumbnails) */}
+      <div className="carousel-thumbnails">
+        {videos.map((video, index) => (
+          <button
+            key={video.id}
+            className={`thumbnail-item glass-card ${index === currentIndex ? "active" : ""}`}
+            onClick={() => goToVideo(index)}
+          >
+            <div className="thumbnail-number">{index + 1}</div>
+            <div className="thumbnail-info">
+              <div className="thumbnail-part">{video.part}</div>
+              <div className="thumbnail-title">{video.title}</div>
+            </div>
+            {index === currentIndex && (
+              <div className="thumbnail-active-indicator">
+                <i className="bi bi-play-circle-fill"></i>
+              </div>
+            )}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -277,96 +434,7 @@ export default function LandingPage() {
               <i className="bi bi-play-circle-fill me-3"></i>
               Demostración en Video
             </h2>
-            <div className="videos-container">
-              {/* Video 1: Demo General */}
-              <div className="video-wrapper glass-card">
-                <h3 className="video-title">
-                  <i className="bi bi-play-circle me-2"></i>
-                  Demo General del Sistema
-                </h3>
-                <div className="video-container">
-                  {/* INSTRUCCIONES: Reemplaza VIDEO_ID con el ID real de YouTube o usa el formato de Google Drive */}
-                  {/* Para YouTube: https://www.youtube.com/watch?v=VIDEO_ID -> usar solo VIDEO_ID */}
-                  {/* Para Google Drive: https://drive.google.com/file/d/ARCHIVO_ID/view -> usar ARCHIVO_ID en el formato de abajo */}
-                  
-                  {/* OPCIÓN 1: YouTube (recomendado) */}
-                  <iframe
-                    className="video-iframe"
-                    src="https://www.youtube.com/embed/VIDEO_ID?rel=0"
-                    title="Demo General ECOLINK"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ display: "none" }}
-                  ></iframe>
-                  
-                  {/* OPCIÓN 2: Google Drive (alternativa) */}
-                  {/* Descomenta y reemplaza ARCHIVO_ID si prefieres usar Google Drive */}
-                  {/* <iframe
-                    className="video-iframe"
-                    src="https://drive.google.com/file/d/ARCHIVO_ID/preview"
-                    title="Demo General ECOLINK"
-                    frameBorder="0"
-                    allowFullScreen
-                  ></iframe> */}
-                  
-                  {/* Placeholder mientras no hay video */}
-                  <div className="video-placeholder-content">
-                    <i className="bi bi-play-circle video-placeholder-icon"></i>
-                    <p className="video-placeholder-text">
-                      <strong>Instrucciones para agregar videos:</strong>
-                    </p>
-                    <div className="video-instructions-box">
-                      <div className="instruction-item">
-                        <h4>
-                          <i className="bi bi-youtube text-danger me-2"></i>
-                          Opción YouTube (Recomendado)
-                        </h4>
-                        <ol>
-                          <li>Sube tu video a YouTube (puede ser privado o no listado)</li>
-                          <li>Copia el ID del video de la URL: <code>youtube.com/watch?v=VIDEO_ID</code></li>
-                          <li>Reemplaza <code>VIDEO_ID</code> en la línea 293 del archivo <code>page.tsx</code></li>
-                          <li>Cambia <code>style=&#123;&#123; display: &quot;none&quot; &#125;&#125;</code> a <code>style=&#123;&#123; display: &quot;block&quot; &#125;&#125;</code></li>
-                        </ol>
-                      </div>
-                      <div className="instruction-item">
-                        <h4>
-                          <i className="bi bi-google-drive text-primary me-2"></i>
-                          Opción Google Drive (Alternativa)
-                        </h4>
-                        <ol>
-                          <li>Sube el video a Google Drive</li>
-                          <li>Haz clic derecho → &quot;Obtener enlace&quot; → &quot;Cualquiera con el enlace&quot;</li>
-                          <li>Copia el ID del archivo de la URL: <code>drive.google.com/file/d/ARCHIVO_ID/view</code></li>
-                          <li>Descomenta el iframe de Google Drive y reemplaza <code>ARCHIVO_ID</code></li>
-                        </ol>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Video 2: Funcionalidades Específicas (opcional) */}
-              {/* Descomenta este bloque si quieres agregar más videos */}
-              {/* 
-              <div className="video-wrapper glass-card">
-                <h3 className="video-title">
-                  <i className="bi bi-list-check me-2"></i>
-                  Funcionalidades Específicas
-                </h3>
-                <div className="video-container">
-                  <iframe
-                    className="video-iframe"
-                    src="https://www.youtube.com/embed/VIDEO_ID_2?rel=0"
-                    title="Funcionalidades ECOLINK"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
-              */}
-            </div>
+            <VideoCarousel />
           </div>
         </div>
       </section>
