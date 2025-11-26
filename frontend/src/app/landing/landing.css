@@ -265,6 +265,115 @@ section {
   margin-bottom: 1rem;
 }
 
+/* Valor Agregado Section */
+.valor-agregado-section {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.valor-agregado-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.valor-agregado-title i {
+  color: var(--primary-green);
+  font-size: 2rem;
+}
+
+.valor-agregado-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.valor-card {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 2px solid rgba(122, 201, 67, 0.2);
+}
+
+.valor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 45px 0 rgba(31, 38, 135, 0.6);
+  border-color: var(--primary-green);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.valor-icon {
+  font-size: 3.5rem;
+  color: var(--primary-green);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(122, 201, 67, 0.1) 0%, rgba(107, 168, 58, 0.1) 100%);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.valor-card:hover .valor-icon {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, rgba(122, 201, 67, 0.2) 0%, rgba(107, 168, 58, 0.2) 100%);
+}
+
+.valor-card h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.valor-card p {
+  font-size: 1rem;
+  color: #333333;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+  text-align: justify;
+}
+
+.valor-benefit {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, rgba(122, 201, 67, 0.15) 0%, rgba(107, 168, 58, 0.15) 100%);
+  border-radius: 10px;
+  border-left: 4px solid var(--primary-green);
+  margin-top: auto;
+}
+
+.valor-benefit i {
+  color: var(--primary-green);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.valor-benefit span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000000;
+}
+
 /* Tecnologías Section */
 .tech-grid {
   display: grid;
@@ -1093,6 +1202,34 @@ section {
 
   .problema-stats {
     grid-template-columns: 1fr;
+  }
+
+  .valor-agregado-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .valor-agregado-title {
+    font-size: 1.5rem;
+    padding: 1.25rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .valor-card {
+    padding: 1.5rem;
+  }
+
+  .valor-icon {
+    font-size: 2.5rem;
+    height: 60px;
+  }
+
+  .valor-card h4 {
+    font-size: 1.3rem;
+  }
+
+  .valor-card p {
+    font-size: 0.95rem;
   }
 
   .tech-grid {

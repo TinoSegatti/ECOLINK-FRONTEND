@@ -238,7 +238,7 @@ export default function LandingPage() {
                   <div className="stat-icon">
                     <i className="bi bi-cash-coin"></i>
                   </div>
-                  <div className="stat-value">+ $20.000</div>
+                  <div className="stat-value">+ U$D 20.000</div>
                   <div className="stat-label">Ahorro Anual</div>
                   <div className="stat-description">
                     Reducción de costos operativos y errores humanos
@@ -268,6 +268,150 @@ export default function LandingPage() {
                   y proporciona herramientas avanzadas de búsqueda y filtrado para una gestión
                   eficiente.
                 </p>
+              </div>
+              
+              {/* Cards de Valor Agregado */}
+              <div className="valor-agregado-section">
+                <h3 className="valor-agregado-title">
+                  <i className="bi bi-star-fill me-2"></i>
+                  Valor Agregado que Transforma tu Negocio
+                </h3>
+                <div className="valor-agregado-grid">
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-database-check"></i>
+                    </div>
+                    <h4>Base de Datos Unificada</h4>
+                    <p>
+                      Elimina la dispersión de información. Toda la data de tus clientes en un solo lugar seguro y accesible, 
+                      sin duplicados ni inconsistencias. Una única fuente de verdad para toda tu operación.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>100% de información centralizada</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-folder-check"></i>
+                    </div>
+                    <h4>Organización Profesional</h4>
+                    <p>
+                      Estructura tus datos con categorías personalizables, filtros avanzados y búsquedas instantáneas. 
+                      Encuentra cualquier cliente en segundos, no en horas.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Búsqueda instantánea en toda la base</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-shield-check"></i>
+                    </div>
+                    <h4>Seguridad y Confiabilidad</h4>
+                    <p>
+                      Protege la información sensible de tus clientes con autenticación robusta, roles de acceso granulares 
+                      y respaldos automáticos. Cumple con estándares de seguridad empresarial.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Control de acceso por roles y permisos</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-globe"></i>
+                    </div>
+                    <h4>Acceso desde Cualquier Lugar</h4>
+                    <p>
+                      Tu equipo puede trabajar desde la oficina, en campo o desde casa. Acceso 24/7 desde cualquier dispositivo 
+                      con conexión a internet. Sin instalaciones complicadas.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Plataforma web responsive y multiplataforma</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-arrow-up-circle"></i>
+                    </div>
+                    <h4>Escalabilidad Garantizada</h4>
+                    <p>
+                      Crece sin límites. El sistema maneja desde 10 hasta 10,000+ clientes sin perder rendimiento. 
+                      Arquitectura moderna preparada para el crecimiento de tu empresa.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Infraestructura preparada para crecer</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-graph-up"></i>
+                    </div>
+                    <h4>Decisiones Basadas en Datos</h4>
+                    <p>
+                      Visualiza el estado real de tu negocio: deudas pendientes, clientes activos, zonas más rentables. 
+                      Toma decisiones estratégicas con información precisa y actualizada en tiempo real.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Reportes y métricas en tiempo real</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-people"></i>
+                    </div>
+                    <h4>Colaboración en Equipo</h4>
+                    <p>
+                      Múltiples usuarios trabajando simultáneamente sin conflictos. Sistema de roles que permite que cada 
+                      miembro del equipo acceda solo a lo que necesita, manteniendo la seguridad.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Trabajo colaborativo sin interferencias</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-lightning-charge"></i>
+                    </div>
+                    <h4>Automatización Inteligente</h4>
+                    <p>
+                      Reduce tareas repetitivas al mínimo. Actualización masiva de precios, gestión de categorías, 
+                      seguimiento automático de estados. Tu equipo se enfoca en lo que realmente importa.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Operaciones masivas en un solo clic</span>
+                    </div>
+                  </div>
+
+                  <div className="valor-card glass-card">
+                    <div className="valor-icon">
+                      <i className="bi bi-award"></i>
+                    </div>
+                    <h4>Imagen Profesional</h4>
+                    <p>
+                      Proyecta seriedad y modernidad. Un sistema profesional mejora la percepción de tu empresa ante clientes 
+                      y socios comerciales. Tecnología que refleja el nivel de tu servicio.
+                    </p>
+                    <div className="valor-benefit">
+                      <i className="bi bi-check-circle-fill"></i>
+                      <span>Interfaz moderna y profesional</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
