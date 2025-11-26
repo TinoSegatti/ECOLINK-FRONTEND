@@ -130,6 +130,12 @@ export default function ClienteTable({
       ),
   )
   const filtroRef = useRef<HTMLDivElement | null>(null)
+  const tableWrapperRef = useRef<HTMLDivElement | null>(null)
+  
+  // Estados para el desplazamiento horizontal con clic derecho
+  const [isRightClickDragging, setIsRightClickDragging] = useState(false)
+  const [dragStartX, setDragStartX] = useState(0)
+  const [dragStartScrollLeft, setDragStartScrollLeft] = useState(0)
 
   // Calcular altura mínima para la tabla
   const calcularAlturaMinima = () => {
@@ -196,6 +202,76 @@ export default function ClienteTable({
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
+
+  // Handlers para desplazamiento horizontal con clic derecho
+  const handleRightMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button === 2 && tableWrapperRef.current) {
+      e.preventDefault() // Prevenir el menú contextual
+      setIsRightClickDragging(true)
+      setDragStartX(e.clientX)
+      setDragStartScrollLeft(tableWrapperRef.current.scrollLeft)
+      // Cambiar el cursor para indicar que se puede arrastrar
+      if (tableWrapperRef.current) {
+        tableWrapperRef.current.style.cursor = "grabbing"
+        tableWrapperRef.current.style.userSelect = "none"
+      }
+    }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isRightClickDragging && tableWrapperRef.current) {
+      e.preventDefault()
+      const x = e.clientX
+      const walk = (x - dragStartX) * 1.5 // Factor de velocidad del desplazamiento
+      tableWrapperRef.current.scrollLeft = dragStartScrollLeft - walk
+    }
+  }
+
+  const handleMouseUp = () => {
+    if (isRightClickDragging) {
+      setIsRightClickDragging(false)
+      if (tableWrapperRef.current) {
+        tableWrapperRef.current.style.cursor = "default"
+        tableWrapperRef.current.style.userSelect = "auto"
+      }
+    }
+  }
+
+  // Efecto para manejar el mousemove y mouseup globales (por si el usuario arrastra fuera del componente)
+  useEffect(() => {
+    if (isRightClickDragging) {
+      const handleGlobalMouseMove = (e: MouseEvent) => {
+        if (tableWrapperRef.current) {
+          e.preventDefault()
+          const x = e.clientX
+          const walk = (x - dragStartX) * 1.5 // Factor de velocidad del desplazamiento
+          tableWrapperRef.current.scrollLeft = dragStartScrollLeft - walk
+        }
+      }
+
+      const handleGlobalMouseUp = () => {
+        setIsRightClickDragging(false)
+        if (tableWrapperRef.current) {
+          tableWrapperRef.current.style.cursor = "default"
+          tableWrapperRef.current.style.userSelect = "auto"
+        }
+      }
+
+      const handleContextMenu = (e: Event) => {
+        e.preventDefault() // Prevenir menú contextual durante el arrastre
+      }
+
+      document.addEventListener("mousemove", handleGlobalMouseMove)
+      document.addEventListener("mouseup", handleGlobalMouseUp)
+      document.addEventListener("contextmenu", handleContextMenu)
+      
+      return () => {
+        document.removeEventListener("mousemove", handleGlobalMouseMove)
+        document.removeEventListener("mouseup", handleGlobalMouseUp)
+        document.removeEventListener("contextmenu", handleContextMenu)
+      }
+    }
+  }, [isRightClickDragging, dragStartX, dragStartScrollLeft])
 
   const sortedClientes = [...clientes].sort((a, b) => {
     const estadoA = a.estado?.toUpperCase()
@@ -517,6 +593,12 @@ export default function ClienteTable({
         .table-responsive-wrapper {
           min-height: ${calcularAlturaMinima()}px;
           position: relative;
+          overflow-x: auto;
+          overflow-y: visible;
+          cursor: grab;
+        }
+        .table-responsive-wrapper:active {
+          cursor: grabbing;
         }
         .colored-cell {
           display: inline-block;
@@ -647,7 +729,17 @@ export default function ClienteTable({
         />
       </div>
 
-      <div className="table-responsive-wrapper">
+      <div 
+        className="table-responsive-wrapper"
+        ref={tableWrapperRef}
+        onMouseDown={handleRightMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onContextMenu={(e) => {
+          // Prevenir el menú contextual para permitir el desplazamiento con clic derecho
+          e.preventDefault()
+        }}
+      >
         <table className="table table-striped table-bordered mt-4 table-sm table-custom">
           <thead>
             <tr>
