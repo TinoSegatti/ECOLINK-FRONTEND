@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
@@ -48,7 +48,6 @@ const videos = [
 // Componente del Carrusel de Videos
 function VideoCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false)
 
   const currentVideo = videos[currentIndex]
 
@@ -63,16 +62,6 @@ function VideoCarousel() {
   const goToVideo = (index: number) => {
     setCurrentIndex(index)
   }
-
-  // Auto-play opcional (deshabilitado por defecto)
-  useEffect(() => {
-    if (isAutoPlaying) {
-      const interval = setInterval(() => {
-        goToNext()
-      }, 30000) // Cambia cada 30 segundos
-      return () => clearInterval(interval)
-    }
-  }, [isAutoPlaying, currentIndex])
 
   return (
     <div className="video-carousel-container">
