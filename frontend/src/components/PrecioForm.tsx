@@ -44,11 +44,11 @@ export default function PrecioForm({
   }
 
   return (
-    <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Actualizar Precios</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+    <Modal show={show} onHide={onHide} centered className="modal-precio">
+        <Modal.Header closeButton>
+          <Modal.Title>Actualizar Precios</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Tipo de Cliente</Form.Label>

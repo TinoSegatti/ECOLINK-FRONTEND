@@ -97,6 +97,77 @@ td .category-badge,
   border-radius: var(--radius);
   border: none;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+}
+
+/* Modal de Precios */
+.modal-precio .modal-content {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.modal-precio .modal-header {
+  background-color: var(--accent-magenta);
+  color: white;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.modal-precio .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.modal-precio .modal-title {
+  color: white;
+  font-weight: 600;
+}
+
+.modal-precio .modal-body {
+  background-color: var(--card-background);
+  color: var(--foreground);
+}
+
+.modal-precio .modal-footer {
+  background-color: var(--card-background);
+  border-top: 1px solid var(--border-color);
+}
+
+.modal-precio .form-label {
+  color: var(--foreground);
+}
+
+.modal-precio .form-control,
+.modal-precio .form-select {
+  background-color: var(--card-background);
+  color: var(--foreground);
+  border-color: var(--border-color);
+}
+
+.modal-precio .form-control:focus,
+.modal-precio .form-select:focus {
+  background-color: var(--card-background);
+  color: var(--foreground);
+  border-color: var(--accent-magenta);
+  box-shadow: 0 0 0 0.2rem rgba(232, 62, 140, 0.25);
+}
+
+/* Tabla de Solicitudes */
+.solicitudes-table thead th {
+  background-color: var(--muted);
+  color: var(--foreground);
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+}
+
+.solicitudes-table tbody td {
+  color: var(--foreground);
+  border-color: var(--border-color);
+}
+
+.solicitudes-table tbody tr:hover {
+  background-color: var(--muted);
 }
 
 .modal-header {

@@ -30,8 +30,8 @@ export default function SolicitudesPage() {
         <div className="row">
           <div className="col-12">
             <div className="mb-4">
-              <h1>Gestión de Solicitudes de Registro</h1>
-              <p className="text-muted">Administra las solicitudes pendientes de nuevos usuarios</p>
+              <h1 style={{ color: "var(--foreground)" }}>Gestión de Solicitudes de Registro</h1>
+              <p style={{ color: "var(--secondary-text)" }}>Administra las solicitudes pendientes de nuevos usuarios</p>
             </div>
             {/* <DebugAuth /> */}
             <SolicitudesAdmin />

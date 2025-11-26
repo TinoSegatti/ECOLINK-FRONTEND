@@ -45,7 +45,7 @@ export default function UserProfile() {
   return (
     <div className="card-custom p-4 shadow">
       <div className="d-flex align-items-center justify-content-between mb-4">
-        <h2 className="mb-0">
+        <h2 className="mb-0" style={{ color: "var(--foreground)" }}>
           <i className="bi bi-person-circle me-2" style={{ color: "var(--primary-green)" }}></i>
           Mi Perfil
         </h2>
@@ -65,7 +65,7 @@ export default function UserProfile() {
         <div className="col-md-8">
           <div className="card border-0" style={{ backgroundColor: "var(--muted)" }}>
             <div className="card-body">
-              <h5 className="card-title mb-3">
+              <h5 className="card-title mb-3" style={{ color: "var(--foreground)" }}>
                 <i className="bi bi-info-circle me-2" style={{ color: "var(--accent-cyan)" }}></i>
                 Información Personal
               </h5>
@@ -74,29 +74,29 @@ export default function UserProfile() {
                 {/* Email */}
                 <div className="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0">
                   <div>
-                    <strong>
+                    <strong style={{ color: "var(--foreground)" }}>
                       <i className="bi bi-envelope me-2" style={{ color: "var(--accent-blue-gray)" }}></i>
                       Email:
                     </strong>
                   </div>
-                  <span className="text-muted">{usuario.email}</span>
+                  <span style={{ color: "var(--secondary-text)" }}>{usuario.email}</span>
                 </div>
 
                 {/* Nombre */}
                 <div className="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0">
                   <div>
-                    <strong>
+                    <strong style={{ color: "var(--foreground)" }}>
                       <i className="bi bi-person me-2" style={{ color: "var(--accent-magenta)" }}></i>
                       Nombre:
                     </strong>
                   </div>
-                  <span className="text-muted">{usuario.nombre}</span>
+                  <span style={{ color: "var(--secondary-text)" }}>{usuario.nombre}</span>
                 </div>
 
                 {/* Rol */}
                 <div className="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0">
                   <div>
-                    <strong>
+                    <strong style={{ color: "var(--foreground)" }}>
                       <i className="bi bi-shield-check me-2" style={{ color: "var(--primary-green)" }}></i>
                       Rol:
                     </strong>
@@ -115,7 +115,7 @@ export default function UserProfile() {
                 {/* Estado */}
                 <div className="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0">
                   <div>
-                    <strong>
+                    <strong style={{ color: "var(--foreground)" }}>
                       <i className="bi bi-check-circle me-2" style={{ color: "var(--accent-cyan)" }}></i>
                       Estado:
                     </strong>
@@ -141,7 +141,7 @@ export default function UserProfile() {
         <div className="col-md-4">
           <div className="card border-0" style={{ backgroundColor: "var(--muted)" }}>
             <div className="card-body">
-              <h5 className="card-title mb-3">
+              <h5 className="card-title mb-3" style={{ color: "var(--foreground)" }}>
                 <i className="bi bi-key me-2" style={{ color: "var(--accent-magenta)" }}></i>
                 Permisos del Rol
               </h5>
@@ -149,7 +149,7 @@ export default function UserProfile() {
               <div className="list-group list-group-flush">
                 {getRolePermissions(usuario.rol).map((permiso, index) => (
                   <div key={index} className="list-group-item bg-transparent border-0 px-0 py-1">
-                    <small>
+                    <small style={{ color: "var(--foreground)" }}>
                       <i className="bi bi-check2 me-2" style={{ color: "var(--primary-green)" }}></i>
                       {permiso}
                     </small>
@@ -161,8 +161,8 @@ export default function UserProfile() {
         </div>
       </div>
 
-      <div className="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
-        <div className="text-muted small">
+      <div className="mt-4 pt-3 border-top d-flex justify-content-between align-items-center" style={{ borderColor: "var(--border-color) !important" }}>
+        <div className="small" style={{ color: "var(--secondary-text)" }}>
           <i className="bi bi-calendar me-1"></i>
           Miembro desde:{" "}
           {new Date(usuario.createdAt).toLocaleDateString("es-ES", {

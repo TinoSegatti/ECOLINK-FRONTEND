@@ -113,42 +113,44 @@ export default function SolicitudesAdmin() {
 
   return (
     <div className="card-custom p-4 shadow">
-      <h2 className="mb-4">Solicitudes de Registro</h2>
+      <h2 className="mb-4" style={{ color: "var(--foreground)" }}>Solicitudes de Registro</h2>
 
-      {message && (
-        <div className={`alert alert-${message.type === "success" ? "success" : "danger"} mb-4`}>
-          {message.text}
-          <button
-            type="button"
-            className="btn-close float-end"
-            onClick={() => setMessage(null)}
-          ></button>
-        </div>
-      )}
+        {message && (
+          <div className={`alert alert-${message.type === "success" ? "success" : "danger"} mb-4`}>
+            {message.text}
+            <button
+              type="button"
+              className="btn-close float-end"
+              onClick={() => setMessage(null)}
+            ></button>
+          </div>
+        )}
 
-      {solicitudes.length === 0 ? (
-        <div className="alert alert-info">No hay solicitudes pendientes</div>
-      ) : (
-        <div className="table-responsive">
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Fecha</th>
-                <th>Email Verificado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
+        {solicitudes.length === 0 ? (
+          <div className="alert alert-info" style={{ backgroundColor: "rgba(23, 162, 184, 0.1)", borderColor: "var(--accent-cyan)", color: "var(--foreground)" }}>
+            No hay solicitudes pendientes
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-hover solicitudes-table">
+              <thead>
+                <tr>
+                  <th style={{ backgroundColor: "var(--muted)", color: "var(--foreground)", borderBottom: "2px solid var(--border-color)", fontWeight: 600 }}>Nombre</th>
+                  <th style={{ backgroundColor: "var(--muted)", color: "var(--foreground)", borderBottom: "2px solid var(--border-color)", fontWeight: 600 }}>Email</th>
+                  <th style={{ backgroundColor: "var(--muted)", color: "var(--foreground)", borderBottom: "2px solid var(--border-color)", fontWeight: 600 }}>Rol</th>
+                  <th style={{ backgroundColor: "var(--muted)", color: "var(--foreground)", borderBottom: "2px solid var(--border-color)", fontWeight: 600 }}>Fecha</th>
+                  <th style={{ backgroundColor: "var(--muted)", color: "var(--foreground)", borderBottom: "2px solid var(--border-color)", fontWeight: 600 }}>Email Verificado</th>
+                  <th style={{ backgroundColor: "var(--muted)", color: "var(--foreground)", borderBottom: "2px solid var(--border-color)", fontWeight: 600 }}>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
               {solicitudes.map((s) => (
-                <tr key={s.id}>
-                  <td>{s.nombre}</td>
-                  <td>{s.email}</td>
-                  <td><span className="badge bg-secondary">{s.rol}</span></td>
-                  <td>{new Date(s.createdAt).toLocaleDateString()}</td>
-                  <td>
+                <tr key={s.id} style={{ color: "var(--foreground)" }}>
+                  <td style={{ color: "var(--foreground)", borderColor: "var(--border-color)" }}>{s.nombre}</td>
+                  <td style={{ color: "var(--foreground)", borderColor: "var(--border-color)" }}>{s.email}</td>
+                  <td style={{ borderColor: "var(--border-color)" }}><span className="badge bg-secondary">{s.rol}</span></td>
+                  <td style={{ color: "var(--foreground)", borderColor: "var(--border-color)" }}>{new Date(s.createdAt).toLocaleDateString()}</td>
+                  <td style={{ borderColor: "var(--border-color)" }}>
                     {s.emailVerificado ? (
                       <span className="badge bg-success">
                         <i className="bi bi-check-circle me-1"></i>Verificado
@@ -159,7 +161,7 @@ export default function SolicitudesAdmin() {
                       </span>
                     )}
                   </td>
-                  <td>
+                  <td style={{ borderColor: "var(--border-color)" }}>
                     <button
                       className="btn btn-sm btn-success me-2"
                       onClick={() => openAprobarModal(s)}
@@ -180,36 +182,36 @@ export default function SolicitudesAdmin() {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </tbody>
+            </table>
+          </div>
+        )}
 
       {/* Modal Aprobar */}
       {showAprobarModal && selectedSolicitud && (
-        <div className="modal d-block" tabIndex={-1} role="dialog">
+        <div className="modal d-block" tabIndex={-1} role="dialog" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
           <div className="modal-dialog">
-            <div className="modal-content">
+            <div className="modal-content" style={{ backgroundColor: "var(--card-background)", border: "1px solid var(--border-color)" }}>
               <form onSubmit={handleAprobar}>
-                <div className="modal-header">
-                  <h5 className="modal-title">
-                    <i className="bi bi-check-circle me-2 text-success"></i>Aprobar Solicitud
+                <div className="modal-header" style={{ backgroundColor: "var(--primary-green)", color: "white", borderBottom: "1px solid var(--border-color)" }}>
+                  <h5 className="modal-title" style={{ color: "white", fontWeight: 600 }}>
+                    <i className="bi bi-check-circle me-2"></i>Aprobar Solicitud
                   </h5>
-                  <button type="button" className="btn-close" onClick={resetModalState}></button>
+                  <button type="button" className="btn-close" onClick={resetModalState} style={{ filter: "brightness(0) invert(1)" }}></button>
                 </div>
-                <div className="modal-body">
-                  <div className="alert alert-info">
+                <div className="modal-body" style={{ backgroundColor: "var(--card-background)", color: "var(--foreground)" }}>
+                  <div className="alert alert-info" style={{ backgroundColor: "rgba(23, 162, 184, 0.1)", borderColor: "var(--accent-cyan)", color: "var(--foreground)" }}>
                     ¿Aprobar a <strong>{selectedSolicitud.nombre}</strong> ({selectedSolicitud.email}) como <strong>{selectedSolicitud.rol}</strong>?
                   </div>
                   {!selectedSolicitud.emailVerificado && (
-                    <div className="alert alert-warning">
+                    <div className="alert alert-warning" style={{ backgroundColor: "rgba(255, 193, 7, 0.1)", borderColor: "#ffc107", color: "var(--foreground)" }}>
                       <i className="bi bi-exclamation-triangle me-2"></i>
                       <strong>Importante:</strong> El email de esta solicitud aún no ha sido verificado. 
                       El usuario debe verificar su email antes de que puedas aprobar la solicitud.
                     </div>
                   )}
                   <div className="mb-3">
-                    <label className="form-label">Contraseña inicial *</label>
+                    <label className="form-label" style={{ color: "var(--foreground)" }}>Contraseña inicial *</label>
                     <input
                       type="password"
                       className="form-control"
@@ -217,13 +219,14 @@ export default function SolicitudesAdmin() {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       disabled={isProcessing}
+                      style={{ backgroundColor: "var(--card-background)", color: "var(--foreground)", borderColor: "var(--border-color)" }}
                     />
-                    <div className="form-text">
+                    <div className="form-text" style={{ color: "var(--secondary-text)" }}>
                       Esta contraseña será asignada al usuario y podrá usarla para iniciar sesión.
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer" style={{ backgroundColor: "var(--card-background)", borderTop: "1px solid var(--border-color)" }}>
                   <button type="button" className="btn btn-secondary" onClick={resetModalState}>
                     Cancelar
                   </button>
@@ -239,32 +242,33 @@ export default function SolicitudesAdmin() {
 
       {/* Modal Rechazar */}
       {showRechazarModal && selectedSolicitud && (
-        <div className="modal d-block" tabIndex={-1} role="dialog">
+        <div className="modal d-block" tabIndex={-1} role="dialog" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
           <div className="modal-dialog">
-            <div className="modal-content">
+            <div className="modal-content" style={{ backgroundColor: "var(--card-background)", border: "1px solid var(--border-color)" }}>
               <form onSubmit={handleRechazar}>
-                <div className="modal-header">
-                  <h5 className="modal-title">
-                    <i className="bi bi-x-circle me-2 text-danger"></i>Rechazar Solicitud
+                <div className="modal-header" style={{ backgroundColor: "#dc3545", color: "white", borderBottom: "1px solid var(--border-color)" }}>
+                  <h5 className="modal-title" style={{ color: "white", fontWeight: 600 }}>
+                    <i className="bi bi-x-circle me-2"></i>Rechazar Solicitud
                   </h5>
-                  <button type="button" className="btn-close" onClick={resetModalState}></button>
+                  <button type="button" className="btn-close" onClick={resetModalState} style={{ filter: "brightness(0) invert(1)" }}></button>
                 </div>
-                <div className="modal-body">
-                  <div className="alert alert-warning">
+                <div className="modal-body" style={{ backgroundColor: "var(--card-background)", color: "var(--foreground)" }}>
+                  <div className="alert alert-warning" style={{ backgroundColor: "rgba(255, 193, 7, 0.1)", borderColor: "#ffc107", color: "var(--foreground)" }}>
                     ¿Rechazar a <strong>{selectedSolicitud.nombre}</strong> ({selectedSolicitud.email})?
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Motivo (opcional)</label>
+                    <label className="form-label" style={{ color: "var(--foreground)" }}>Motivo (opcional)</label>
                     <textarea
                       className="form-control"
                       rows={3}
                       value={motivo}
                       onChange={(e) => setMotivo(e.target.value)}
                       disabled={isProcessing}
+                      style={{ backgroundColor: "var(--card-background)", color: "var(--foreground)", borderColor: "var(--border-color)" }}
                     ></textarea>
                   </div>
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer" style={{ backgroundColor: "var(--card-background)", borderTop: "1px solid var(--border-color)" }}>
                   <button type="button" className="btn btn-secondary" onClick={resetModalState}>
                     Cancelar
                   </button>
