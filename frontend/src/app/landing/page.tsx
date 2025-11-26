@@ -48,103 +48,125 @@ const videos = [
 // Componente del Carrusel de Videos
 function VideoCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const currentVideo = videos[currentIndex]
 
   const goToPrevious = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
     setCurrentIndex((prevIndex) => (prevIndex === 0 ? videos.length - 1 : prevIndex - 1))
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   const goToNext = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
     setCurrentIndex((prevIndex) => (prevIndex === videos.length - 1 ? 0 : prevIndex + 1))
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   const goToVideo = (index: number) => {
+    if (isTransitioning || index === currentIndex) return
+    setIsTransitioning(true)
     setCurrentIndex(index)
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   return (
     <div className="video-carousel-container">
-      {/* Controles de navegación superior */}
-      <div className="carousel-header">
-        <div className="carousel-title-section">
-          <h3 className="carousel-main-title">
-            <span className="part-badge">{currentVideo.part}</span>
-            {currentVideo.title}
-          </h3>
-          <div className="carousel-counter">
-            {currentIndex + 1} / {videos.length}
+      {/* Header con título y controles */}
+      <div className="carousel-header-modern">
+        <div className="carousel-title-wrapper">
+          <div className="carousel-badge-modern">
+            <span className="badge-number">{currentIndex + 1}</span>
+            <span className="badge-separator">/</span>
+            <span className="badge-total">{videos.length}</span>
+          </div>
+          <div className="carousel-title-content">
+            <div className="carousel-part-label">{currentVideo.part}</div>
+            <h3 className="carousel-main-title-modern">{currentVideo.title}</h3>
           </div>
         </div>
-        <div className="carousel-controls-top">
+        <div className="carousel-nav-buttons">
           <button
-            className="carousel-btn carousel-btn-prev"
+            className="carousel-nav-btn carousel-nav-prev"
             onClick={goToPrevious}
             aria-label="Video anterior"
+            disabled={isTransitioning}
           >
             <i className="bi bi-chevron-left"></i>
           </button>
           <button
-            className="carousel-btn carousel-btn-next"
+            className="carousel-nav-btn carousel-nav-next"
             onClick={goToNext}
             aria-label="Video siguiente"
+            disabled={isTransitioning}
           >
             <i className="bi bi-chevron-right"></i>
           </button>
         </div>
       </div>
 
-      {/* Contenedor del video */}
-      <div className="video-carousel-wrapper glass-card">
-        <div className="video-carousel-item">
-          <div className="video-embed-container">
-            <iframe
-              key={currentVideo.id}
-              className="video-embed-iframe"
-              src={`https://www.youtube.com/embed/${currentVideo.id}?rel=0&autoplay=0`}
-              title={currentVideo.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+      {/* Contenedor del video con animación */}
+      <div className={`video-carousel-wrapper-modern ${isTransitioning ? "transitioning" : ""}`}>
+        <div className="video-embed-container-modern">
+          <div className="video-overlay">
+            <div className="video-play-icon">
+              <i className="bi bi-play-circle-fill"></i>
+            </div>
           </div>
+          <iframe
+            key={currentVideo.id}
+            className="video-embed-iframe-modern"
+            src={`https://www.youtube.com/embed/${currentVideo.id}?rel=0&autoplay=0`}
+            title={currentVideo.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
       </div>
 
-      {/* Indicadores de videos (dots) */}
-      <div className="carousel-indicators">
+      {/* Indicadores modernos */}
+      <div className="carousel-indicators-modern">
         {videos.map((video, index) => (
           <button
             key={video.id}
-            className={`carousel-indicator ${index === currentIndex ? "active" : ""}`}
+            className={`carousel-indicator-modern ${index === currentIndex ? "active" : ""}`}
             onClick={() => goToVideo(index)}
             aria-label={`Ir a ${video.title}`}
             title={video.title}
           >
-            <span className="indicator-dot"></span>
-            <span className="indicator-label">{index + 1}</span>
+            <span className="indicator-progress"></span>
+            <span className="indicator-number">{index + 1}</span>
           </button>
         ))}
       </div>
 
-      {/* Lista de videos (thumbnails) */}
-      <div className="carousel-thumbnails">
+      {/* Grid de thumbnails moderno */}
+      <div className="carousel-thumbnails-modern">
         {videos.map((video, index) => (
           <button
             key={video.id}
-            className={`thumbnail-item glass-card ${index === currentIndex ? "active" : ""}`}
+            className={`thumbnail-item-modern ${index === currentIndex ? "active" : ""}`}
             onClick={() => goToVideo(index)}
           >
-            <div className="thumbnail-number">{index + 1}</div>
-            <div className="thumbnail-info">
-              <div className="thumbnail-part">{video.part}</div>
-              <div className="thumbnail-title">{video.title}</div>
-            </div>
-            {index === currentIndex && (
-              <div className="thumbnail-active-indicator">
-                <i className="bi bi-play-circle-fill"></i>
+            <div className="thumbnail-header">
+              <div className="thumbnail-number-modern">
+                <span>{index + 1}</span>
               </div>
-            )}
+              {index === currentIndex && (
+                <div className="thumbnail-active-badge">
+                  <i className="bi bi-play-fill"></i>
+                </div>
+              )}
+            </div>
+            <div className="thumbnail-content">
+              <div className="thumbnail-part-modern">{video.part}</div>
+              <div className="thumbnail-title-modern">{video.title}</div>
+            </div>
+            <div className="thumbnail-hover-effect"></div>
           </button>
         ))}
       </div>
