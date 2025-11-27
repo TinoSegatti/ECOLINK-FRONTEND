@@ -581,6 +581,112 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Futuras Mejoras Section */}
+      <section id="futuras-mejoras" className="section-futuras-mejoras">
+        <div className="container-custom">
+          <div className="glass-card content-card">
+            <h2 className="section-title">
+              <i className="bi bi-lightbulb-fill me-3"></i>
+              Proyecciones y Futuras Mejoras
+            </h2>
+            <div className="mejoras-intro">
+              <p>
+                ECOLINK está diseñado con una arquitectura escalable que permite su evolución continua. 
+                A continuación, se detallan las funcionalidades que actualmente no están incluidas en el 
+                alcance inicial del proyecto, pero que están contempladas para futuras versiones:
+              </p>
+            </div>
+            <div className="mejoras-grid">
+              <div className="mejora-card glass-card">
+                <div className="mejora-icon">
+                  <i className="bi bi-people"></i>
+                </div>
+                <h3>Gestión Interna de Empleados</h3>
+                <p>
+                  Sistema completo para la gestión de recursos humanos de la empresa, incluyendo 
+                  contratos, horarios, asistencia, nóminas y evaluación de desempeño.
+                </p>
+                <div className="mejora-status">
+                  <span className="status-badge">Futura Versión</span>
+                </div>
+              </div>
+
+              <div className="mejora-card glass-card">
+                <div className="mejora-icon">
+                  <i className="bi bi-bell-fill"></i>
+                </div>
+                <h3>Notificaciones Automáticas</h3>
+                <p>
+                  Sistema de alertas y notificaciones automáticas sobre el estado del sistema, 
+                  servicios y eventos importantes mediante correo electrónico, WhatsApp u otros canales de comunicación.
+                </p>
+                <div className="mejora-status">
+                  <span className="status-badge">Futura Versión</span>
+                </div>
+              </div>
+
+              <div className="mejora-card glass-card">
+                <div className="mejora-icon">
+                  <i className="bi bi-geo-alt-fill"></i>
+                </div>
+                <h3>Cálculo de Costos Logísticos</h3>
+                <p>
+                  Herramienta avanzada para el cálculo y optimización de costos logísticos de 
+                  recorridos y rutas de recolección, incluyendo análisis de eficiencia y planificación de rutas.
+                </p>
+                <div className="mejora-status">
+                  <span className="status-badge">Futura Versión</span>
+                </div>
+              </div>
+
+              <div className="mejora-card glass-card">
+                <div className="mejora-icon">
+                  <i className="bi bi-plus-circle-fill"></i>
+                </div>
+                <h3>Nuevas Funcionalidades</h3>
+                <p>
+                  Incorporación de funcionalidades adicionales no previstas en los objetivos iniciales 
+                  del proyecto, adaptadas a las necesidades específicas de cada cliente.
+                </p>
+                <div className="mejora-status">
+                  <span className="status-badge">Futura Versión</span>
+                </div>
+              </div>
+
+              <div className="mejora-card glass-card">
+                <div className="mejora-icon">
+                  <i className="bi bi-phone"></i>
+                </div>
+                <h3>Compatibilidad Móvil Nativa</h3>
+                <p>
+                  Desarrollo de aplicaciones móviles nativas para tablets y smartphones (iOS y Android) 
+                  que permitan acceso completo al sistema desde dispositivos móviles con experiencia optimizada.
+                </p>
+                <div className="mejora-status">
+                  <span className="status-badge">Futura Versión</span>
+                </div>
+              </div>
+            </div>
+            <div className="mejoras-note">
+              <div className="note-icon">
+                <i className="bi bi-info-circle-fill"></i>
+              </div>
+              <div className="note-content">
+                <p>
+                  <strong>Nota importante:</strong> Estas funcionalidades están planificadas para futuras 
+                  versiones del sistema. La arquitectura actual de ECOLINK está diseñada para facilitar 
+                  la incorporación de estas mejoras sin afectar el funcionamiento existente.
+                </p>
+                <p>
+                  Si alguna de estas funcionalidades es prioritaria para su empresa, podemos discutir 
+                  su implementación como parte de un plan de desarrollo personalizado.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Videos Section */}
       <section id="videos" className="section-videos">
         <div className="container-custom">
@@ -749,6 +855,7 @@ export default function LandingPage() {
               <a href="#problema">Problema</a>
               <a href="#tecnologias">Tecnologías</a>
               <a href="#funcionalidades">Funcionalidades</a>
+              <a href="#futuras-mejoras">Futuras Mejoras</a>
               <a href="#videos">Videos</a>
               <a href="#repositorios">Repositorios</a>
             </div>
