@@ -220,7 +220,7 @@ export default function LandingPage() {
           <div className="glass-card content-card">
             <h2 className="section-title">
               <i className="bi bi-exclamation-triangle-fill me-3"></i>
-              El Problema que Resolvemos
+              Principales Beneficios
             </h2>
             <div className="problema-content">
               <div className="problema-stats">
